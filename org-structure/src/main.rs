@@ -9,4 +9,6 @@ fn main() {
     org.init();
     org.print_departments();
     org.print_structure();
+
+    org.hire_to("Sales", String::from("Jade"));
 }

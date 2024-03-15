@@ -27,6 +27,16 @@ impl Organization {
     self.departments.insert(id, dep);
   }
 
+  fn find_department(&self, dep_name: &str) -> Option<&Department> {
+    for (_, department) in &self.departments {
+      if department.name == dep_name {
+        return Some(department)
+      }
+    }
+
+    None
+  }
+
   // public
   pub fn new() -> Organization {
     Organization {
@@ -46,6 +56,21 @@ impl Organization {
 
     self.add_department(direction);
     self.add_department(sales);
+  }
+
+  pub fn hire_to(&mut self, dep_name: &str, worker: String) {
+    let mut dep = match self.find_department(dep_name) {
+      Some(dep) => dep,
+      None => {
+        println!("Unable to find department \"{}\"", &dep_name);
+        println!("Available departments are:");
+        self.print_departments();
+
+        return
+      }
+    };
+
+    println!("Dep: {:?}, worker: {worker}", dep);
   }
 
   pub fn print_departments(&self) {
