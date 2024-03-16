@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Department {
   pub name: String,
   workers: Vec<String>,

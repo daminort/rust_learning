@@ -3,13 +3,13 @@ use crate::department::Department;
 
 #[derive(Debug)]
 pub struct Organization {
-  departments: HashMap<u32, Department>,
+  departments: HashMap<usize, Department>,
 }
 
 impl Organization {
   // private
-  fn next_id(&self) -> u32 {
-    let mut ids: Vec<&u32> = self.departments.keys().collect();
+  fn next_id(&self) -> usize {
+    let mut ids: Vec<&usize> = self.departments.keys().collect();
     let len = ids.len();
     if len == 0 {
       return 1
@@ -22,19 +22,28 @@ impl Organization {
     }
   }
 
-  fn add_department(&mut self, dep: Department) {
+  fn add_department(&mut self, dep: Department) -> usize {
     let id = self.next_id();
     self.departments.insert(id, dep);
+
+    id
   }
 
-  fn find_department(&self, dep_name: &str) -> Option<&Department> {
-    for (_, department) in &self.departments {
+  fn get_department(&mut self, dep_name: &str) -> Option<&mut Department> {
+    let mut id: usize = 0;
+    let cloned_deps = &self.departments.clone();
+    for (current_id, department) in cloned_deps {
       if department.name == dep_name {
-        return Some(department)
+        id = *current_id;
+        break;
       }
     }
 
-    None
+    if id == 0 {
+      return None
+    }
+    
+    self.departments.get_mut(&id)
   }
 
   // public
@@ -59,18 +68,14 @@ impl Organization {
   }
 
   pub fn hire_to(&mut self, dep_name: &str, worker: String) {
-    let mut dep = match self.find_department(dep_name) {
-      Some(dep) => dep,
-      None => {
-        println!("Unable to find department \"{}\"", &dep_name);
-        println!("Available departments are:");
-        self.print_departments();
-
-        return
+    match self.get_department(dep_name) {
+      Some(dep) => {
+        dep.hire(worker);
       }
-    };
-
-    println!("Dep: {:?}, worker: {worker}", dep);
+      None => {
+        println!("")
+      }
+    }
   }
 
   pub fn print_departments(&self) {

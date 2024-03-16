@@ -11,4 +11,5 @@ fn main() {
     org.print_structure();
 
     org.hire_to("Sales", String::from("Jade"));
+    org.print_structure();
 }
