@@ -10,6 +10,10 @@ fn main() {
     org.print_departments();
     org.print_structure();
 
-    org.hire_to("Sales", String::from("Jade"));
+    println!();
+    println!("-------------------");
+
+    org.hire_to("Warehouse", String::from("Jade"));
+    org.hire_to("Warehouse", String::from("Aaron"));
     org.print_structure();
 }

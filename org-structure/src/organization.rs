@@ -73,7 +73,9 @@ impl Organization {
         dep.hire(worker);
       }
       None => {
-        println!("")
+        let mut new_dep = Department::new(String::from(dep_name));
+        new_dep.hire(worker);
+        self.add_department(new_dep);
       }
     }
   }

@@ -14,14 +14,12 @@ impl Department {
 
   pub fn hire(&mut self, name: String) {
     self.workers.push(name);
+    self.workers.sort();
   }
 
   pub fn print(&self) {
-    let mut sorted = self.workers.clone();
-    sorted.sort();
-
-    println!("");
+    println!();
     println!("Department: \"{}\"", &self.name);
-    println!("workers: {:?}", sorted);
+    println!("Workers: {:?}", self.workers);
   }
 }
