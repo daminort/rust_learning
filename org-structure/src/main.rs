@@ -1,19 +1,24 @@
 mod organization;
 mod department;
+mod flow;
 
 use organization::Organization;
 
 fn main() {
-    let mut org = Organization::new();
+  let mut org = Organization::new();
+  org.init();
 
-    org.init();
-    org.print_departments();
-    org.print_structure();
+  loop {
+    flow::select_mode(&mut org);
+  }
 
-    println!();
-    println!("-------------------");
-
-    org.hire_to("Warehouse", String::from("Jade"));
-    org.hire_to("Warehouse", String::from("Aaron"));
-    org.print_structure();
+  // org.print_departments();
+  // org.print_structure();
+  //
+  // println!();
+  // println!("-------------------");
+  //
+  // org.hire_to("Warehouse", String::from("Jade"));
+  // org.hire_to("Warehouse", String::from("Aaron"));
+  // org.print_structure();
 }
