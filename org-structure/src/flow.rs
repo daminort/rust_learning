@@ -1,6 +1,7 @@
 use std::io;
 use std::process::exit;
 use crate::organization::Organization;
+use crate::input;
 
 pub fn select_mode(org: &mut Organization) {
   println!("--------------------------------");
@@ -12,12 +13,8 @@ pub fn select_mode(org: &mut Organization) {
   println!();
   println!("Your choice: ");
 
-  let mut mode = String::new();
-  io::stdin()
-    .read_line(&mut mode)
-    .expect("Failed to read the line");
-
-  let mode = mode.trim();
+  let res = input::read_string();
+  let mode = res.as_str();
   match mode {
     "0" => exit(0),
     "1" => print_org(&org),
@@ -40,18 +37,12 @@ fn print_dep(org: &Organization) {
   org.print_departments();
 
   let dep_id = loop {
-    let mut input = String::new();
-    io::stdin()
-      .read_line(&mut input)
-      .expect("Failed to read the line");
-
-    match input.trim().parse() {
-      Ok(value) => break value,
-      Err(_) => {
-        println!("Enter valid number");
-        continue;
-      },
+    let num_id = input::read_number();
+    if num_id == 0 {
+      continue;
     }
+
+    break num_id
   };
 
   match org.get_department(dep_id) {

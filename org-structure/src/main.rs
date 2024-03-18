@@ -1,6 +1,7 @@
 mod organization;
 mod department;
 mod flow;
+mod input;
 
 use organization::Organization;
 
