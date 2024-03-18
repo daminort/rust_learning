@@ -29,7 +29,7 @@ impl Organization {
     id
   }
 
-  fn get_department(&mut self, dep_name: &str) -> Option<&mut Department> {
+  fn find_department(&mut self, dep_name: &str) -> Option<&mut Department> {
     let mut id: usize = 0;
     let cloned_deps = &self.departments.clone();
     for (current_id, department) in cloned_deps {
@@ -67,8 +67,12 @@ impl Organization {
     self.add_department(sales);
   }
 
+  pub fn get_department(&self, id: usize) -> Option<&Department> {
+    self.departments.get(&id)
+  }
+
   pub fn hire_to(&mut self, dep_name: &str, worker: String) {
-    match self.get_department(dep_name) {
+    match self.find_department(dep_name) {
       Some(dep) => {
         dep.hire(worker);
       }

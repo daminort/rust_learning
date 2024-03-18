@@ -11,14 +11,4 @@ fn main() {
   loop {
     flow::select_mode(&mut org);
   }
-
-  // org.print_departments();
-  // org.print_structure();
-  //
-  // println!();
-  // println!("-------------------");
-  //
-  // org.hire_to("Warehouse", String::from("Jade"));
-  // org.hire_to("Warehouse", String::from("Aaron"));
-  // org.print_structure();
 }
