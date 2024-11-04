@@ -1,0 +1,6 @@
+[package]
+name = "m08-square-equality"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
